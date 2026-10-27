@@ -25,16 +25,17 @@ export function Philosophy() {
     <section id="philosophy" className="relative scroll-mt-20 py-24 lg:py-36" aria-labelledby="philosophy-title">
       <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="relative lg:col-span-6">
-          <MaskReveal className="relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2rem] sm:w-[82%]">
+          {/* Landscape frame so the full signboard and both shop windows show. */}
+          <MaskReveal className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(59,33,20,0.5)]">
             <Image
-              src="/images/brand/store-front.jpg"
-              alt="The HonestHands store front in Rasulgarh, Bhubaneswar, lit up in the evening"
+              src="/images/brand/store-front-night.jpg"
+              alt="The HonestHands store front in Rasulgarh, Bhubaneswar, lit up at night, with the Honest Kappi menu in the window"
               fill
-              sizes="(min-width: 1024px) 40vw, 90vw"
-              className="object-cover object-[30%_50%]"
+              sizes="(min-width: 1024px) 45vw, 95vw"
+              className="object-cover object-top"
             />
           </MaskReveal>
-          <MaskReveal delay={0.3} className="absolute -bottom-10 right-0 aspect-square w-[44%] overflow-hidden rounded-[1.6rem] border-[6px] border-ivory shadow-xl">
+          <MaskReveal delay={0.3} className="absolute -bottom-10 -right-2 aspect-square w-[24%] overflow-hidden rounded-[1.2rem] border-[5px] border-ivory shadow-xl sm:-bottom-14 sm:-right-6 lg:w-[22%]">
             <Image src="/images/brand/packaging-1.jpg" alt="HonestHands spice and flour pouches with the three-women logo label" fill sizes="(min-width: 1024px) 20vw, 45vw" className="object-cover" />
           </MaskReveal>
           <Botanical className="pointer-events-none absolute -left-8 -top-14 h-40 w-52 text-terracotta/50" />

@@ -13,8 +13,8 @@ const shots = [
   { src: "/images/mood/mustard-oil-loose.jpg", alt: "Mustard oil in a glass jar beside mustard flowers", caption: "Kachi ghani mustard oil", ratio: "aspect-[4/3]" },
   { src: "/images/mood/panch-phoron-loose.jpg", alt: "Panch phoron whole spices", caption: "Five seeds of panch phoron", ratio: "aspect-square" },
   { src: "/images/products/coffee.jpg", alt: "Freshly ground coffee in a brass bowl", caption: "Ground for Honest Kappi", ratio: "aspect-[4/5]" },
-  { src: "/images/brand/packaging-2.jpg", alt: "The HonestHands range of pouches, honey and more", caption: "The whole pantry", ratio: "aspect-[4/3]" },
-  { src: "/images/products/mushroom.jpg", alt: "Oyster mushrooms on a wooden board", caption: "Gourmet mushrooms", ratio: "aspect-square" },
+  { src: "/images/products/badam-ladoo.webp", alt: "Peanut and jaggery badam ladoos in a clear tub", caption: "Badam ladoo, bound in jaggery", ratio: "aspect-[6/5]" },
+  { src: "/images/products/ragi-biscuits.webp", alt: "Ragi biscuits in a HonestHands tub", caption: "Crisp ragi biscuits", ratio: "aspect-square" },
   { src: "/images/mood/a2-desi-cow-ghee-loose.jpg", alt: "A spoon of golden ghee", caption: "Bilona-churned ghee", ratio: "aspect-[3/4]" },
 ];
 

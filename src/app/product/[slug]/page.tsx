@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Hand, Leaf, Store } from "lucide-react";
+import { Hand, Leaf, MapPin, Store } from "lucide-react";
 import { Breadcrumbs, breadcrumbJsonLd } from "@/components/PageHeader";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductBuyBox, ProductGallery, VariantProvider } from "@/components/ProductDetail";
 import { Reveal } from "@/components/Reveal";
-import { getCategory, getProduct, products, relatedProducts } from "@/lib/products";
+import { getCategory, getProduct, originLabel, products, relatedProducts } from "@/lib/products";
 import { recipes } from "@/lib/recipes";
 import { PRICES_ARE_DEMO, site } from "@/lib/site";
 
@@ -82,6 +82,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </Link>
             <h1 className="mt-4 text-[clamp(2.6rem,5vw,4.4rem)]">{product.name}</h1>
             {product.localName && <p className="font-hand text-3xl text-terracotta">{product.localName}</p>}
+            {originLabel(product) && (
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-leaf/10 px-3 py-1 text-sm font-semibold text-leaf">
+                <MapPin className="h-3.5 w-3.5" aria-hidden /> {originLabel(product)}
+              </p>
+            )}
             {product.badges && (
               <ul className="mt-5 flex flex-wrap gap-2">
                 {product.badges.map((b) => (
@@ -98,6 +103,29 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <ProductBuyBox product={product} />
             {PRICES_ARE_DEMO && <p className="mt-5 text-xs text-muted">Preview: price and pack sizes are sample values.</p>}
           </div>
+
+          {product.contents && (
+            <div className="mt-8">
+              <h2 className="text-3xl">
+                What&apos;s inside your box <span className="font-hand text-2xl text-terracotta">({product.contents.length} items)</span>
+              </h2>
+              <ol className="mt-4 divide-y divide-sand/70 rounded-[1.4rem] border border-sand/70 bg-ivory px-5">
+                {product.contents.map((c, i) => (
+                  <li key={c.name} className="flex items-baseline gap-3 py-2.5 text-[0.95rem]">
+                    <span className="w-6 shrink-0 text-xs text-muted tabular-nums">{i + 1}.</span>
+                    {c.product ? (
+                      <Link href={`/product/${c.product}`} className="min-w-0 flex-1 text-bark link-underline">
+                        {c.name}
+                      </Link>
+                    ) : (
+                      <span className="min-w-0 flex-1 text-bark">{c.name}</span>
+                    )}
+                    <span className="shrink-0 font-semibold text-rust">{c.qty}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
 
           <ul className="mt-8 grid gap-4 text-sm sm:grid-cols-3">
             <li className="flex items-start gap-3">

@@ -15,8 +15,9 @@ const layout = [
   "lg:col-span-4 lg:aspect-[4/4.4]",
 ];
 
-// Fresh Produce & Wellness stays in the shop but is not featured here.
-const homeCollections = categories.filter((c) => c.slug !== "fresh-produce-wellness");
+// Fresh Produce & Wellness and the Monthly Box stay in the shop but are not cards here
+// (the box has its own homepage section).
+const homeCollections = categories.filter((c) => c.slug !== "fresh-produce-wellness" && c.slug !== "monthly-box");
 
 export function Collections() {
   return (

@@ -5,13 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, Search, ShoppingBag, X } from "lucide-react";
-import { categories } from "@/lib/products";
+import { ArrowRight, ChevronDown, Menu, Search, ShoppingBag, X } from "lucide-react";
+import { categories, getProduct } from "@/lib/products";
 import { site } from "@/lib/site";
-import { cn } from "@/lib/format";
+import { cn, rupees } from "@/lib/format";
 import { useCart } from "@/store/cart";
 import { useMounted } from "@/lib/useMounted";
 import { SearchOverlay } from "./SearchOverlay";
+
+// The Monthly Ration Box gets its own nav link and a card in the phone menu.
+const box = getProduct("monthly-ration-box");
+const boxHref = "/product/monthly-ration-box";
+// Remove once the box is no longer new.
+const BOX_IS_NEW = true;
 
 const nav = [
   { href: "/cafe", label: "Honest Kappi" },
@@ -99,6 +105,15 @@ export function Header() {
                 )}
               </AnimatePresence>
             </div>
+            {box && (
+              <Link
+                href={boxHref}
+                className={cn("flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-bark hover:bg-beige/70", pathname === boxHref && "text-rust")}
+              >
+                Monthly Box
+                {BOX_IS_NEW && <span className="rounded-full bg-marigold px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-bark uppercase">New</span>}
+              </Link>
+            )}
             {nav.map((n) => (
               <Link
                 key={n.href}
@@ -148,6 +163,21 @@ export function Header() {
               className="overflow-y-auto bg-ivory lg:hidden"
             >
               <div className="container-x py-6">
+                {box && (
+                  <Link href={boxHref} className="mb-6 flex items-center gap-4 rounded-2xl bg-rust p-3 text-cream">
+                    <Image src={box.image!} alt="" width={72} height={72} className="h-[72px] w-[72px] shrink-0 rounded-xl object-cover" />
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-2 font-display text-xl font-semibold">
+                        Monthly Ration Box
+                        {BOX_IS_NEW && <span className="rounded-full bg-marigold px-1.5 py-0.5 font-sans text-[9px] font-bold tracking-wider text-bark uppercase">New</span>}
+                      </span>
+                      <span className="block text-sm text-cream/80">
+                        {box.contents?.length} essentials · {rupees(box.variants[0].price)}
+                      </span>
+                    </span>
+                    <ArrowRight className="h-5 w-5 shrink-0" aria-hidden />
+                  </Link>
+                )}
                 <p className="eyebrow text-terracotta">Shop by collection</p>
                 <ul className="mt-3 divide-y divide-sand/60">
                   {categories.map((c) => (

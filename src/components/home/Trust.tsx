@@ -28,8 +28,8 @@ export function Trust() {
   return (
     <section className="py-24 lg:py-32" aria-labelledby="trust-title">
       <div className="container-x">
-        <MaskReveal className="relative aspect-[16/10] overflow-hidden rounded-[2rem] sm:aspect-[21/8]">
-          <Image src="/images/brand/store-signboard.jpg" alt="The illuminated HonestHands signboard reading 'Organic & Handmade Products'" fill sizes="100vw" className="object-cover" />
+        <MaskReveal className="relative aspect-[4/3] overflow-hidden rounded-[2rem] sm:aspect-[16/9] lg:aspect-[2/1]">
+          <Image src="/images/brand/store-front-night.jpg" alt="The HonestHands store in Rasulgarh at night: the lit signboard, the Honest Kappi window and shelves of products" fill sizes="100vw" className="object-cover object-[center_12%]" />
         </MaskReveal>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12">

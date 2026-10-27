@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, X } from "lucide-react";
-import { getCategory, type Product } from "@/lib/products";
+import { ArrowRight, MapPin, X } from "lucide-react";
+import { getCategory, originLabel, type Product } from "@/lib/products";
 import { ProductVisual } from "./ProductVisual";
 import { AddToCart } from "./AddToCart";
 
@@ -55,6 +55,11 @@ export function QuickView({ product, open, onClose }: { product: Product; open: 
               <p className="eyebrow text-terracotta">{getCategory(product.category)?.name}</p>
               <h2 className="mt-3 text-4xl">{product.name}</h2>
               {product.localName && <p className="font-hand text-2xl text-terracotta">{product.localName}</p>}
+              {originLabel(product) && (
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-leaf/10 px-3 py-1 text-xs font-semibold text-leaf">
+                <MapPin className="h-3.5 w-3.5" aria-hidden /> {originLabel(product)}
+              </p>
+            )}
               <p className="mt-4 leading-relaxed text-muted">{product.description}</p>
               <div className="mt-6">
                 <AddToCart product={product} compact variantId={variantId} onVariantChange={setVariantId} />

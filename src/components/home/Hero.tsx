@@ -122,7 +122,7 @@ export function Hero() {
             transition={{ duration: 1, delay: 1.6 }}
             aria-hidden
           >
-            straight from {site.address.state}’s kitchens
+            straight from {site.address.state}’s farms
           </motion.p>
         </div>
       </div>

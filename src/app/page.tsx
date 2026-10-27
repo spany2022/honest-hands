@@ -10,19 +10,22 @@ import { Trust } from "@/components/home/Trust";
 import { HonestKappi } from "@/components/home/HonestKappi";
 import { Heritage } from "@/components/home/Heritage";
 import { Newsletter } from "@/components/home/Newsletter";
+import { MonthlyBox } from "@/components/home/MonthlyBox";
 
 export default function Home() {
   return (
     <>
+      {/* Shopping first, then the café, then the brand story. */}
       <Hero />
       <Philosophy />
-      <Collections />
       <Essentials />
+      <MonthlyBox />
+      <HonestKappi />
+      <Collections />
       <FarmToKitchen />
       <Gallery />
       <WhyChoose />
       <RecipesTeaser />
-      <HonestKappi />
       <Trust />
       <Heritage />
       <Newsletter />

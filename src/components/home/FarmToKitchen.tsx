@@ -10,8 +10,9 @@ const stages = [
     n: "01",
     title: "Grown with Care",
     text: "We partner directly with conscious growers, so every harvest can be traced back to where it came from — fresh, seasonal and honest.",
-    image: "/images/products/exotic-vegetables.jpg",
-    alt: "A spread of freshly harvested vegetables",
+    // Photo: Unsplash (free licence), photo-1709207517323-a8fd737c5498.
+    image: "/images/mood/farmer-harvest.jpg",
+    alt: "A farmer kneeling in a ploughed field beside a woven basket of freshly harvested greens",
   },
   {
     n: "02",

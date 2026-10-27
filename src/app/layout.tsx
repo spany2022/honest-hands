@@ -41,7 +41,7 @@ const orgJsonLd = {
   slogan: site.tagline,
   url: site.url,
   logo: `${site.url}/images/brand/logo.png`,
-  image: `${site.url}/images/brand/store-front.jpg`,
+  image: `${site.url}/images/brand/store-front-night.jpg`,
   hasMap: site.mapsUrl,
   telephone: "+91-6370175088",
   email: site.email,

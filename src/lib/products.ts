@@ -4,6 +4,7 @@
 // sheet (Oct 2026) plus a flat ₹10 increase per pack; products not on that sheet are "price on request".
 
 export type CategorySlug =
+  | "monthly-box"
   | "grains-atta"
   | "pulses-dals-flours"
   | "spices-condiments"
@@ -36,6 +37,12 @@ export type Product = {
   short: string;
   description: string;
   image?: string;
+  // Where the product is sourced from (district, state), per the client's list.
+  origin?: string;
+  // Made in-house by HonestHands rather than sourced.
+  madeByUs?: boolean;
+  // For bundles: what is inside, linking to each product where it is sold singly.
+  contents?: { name: string; qty: string; product?: string }[];
   // Colour used for the illustrated pack when there is no photograph yet.
   tint: string;
   kind?: "food" | "craft";
@@ -50,6 +57,13 @@ export type Product = {
 };
 
 export const categories: Category[] = [
+  {
+    slug: "monthly-box",
+    name: "Monthly Ration Box",
+    short: "A month of essentials",
+    description: "Twenty everyday HonestHands staples — rice, atta, dal, oil, chatua, honey and spices — packed together for a month of home cooking.",
+    image: "/images/products/monthly-ration-box.webp",
+  },
   {
     slug: "grains-atta",
     name: "Grains, Atta & Pulses",
@@ -87,7 +101,7 @@ export const categories: Category[] = [
     name: "Natural Sweeteners, Beverages & Snacks",
     short: "Honey, jaggery & snacks",
     description:
-      "Wild and farm honey, unrefined jaggery, badam ladoo and traditional Odia snacks like mixture and chuda bhaja.",
+      "Wild and farm honey, unrefined jaggery, badam ladoo, ragi and salty biscuits, and traditional Odia snacks like mixture and chuda bhaja.",
     image: "/images/mood/honey-loose.jpg",
   },
   {
@@ -111,6 +125,45 @@ export const categories: Category[] = [
 const w = (id: string, label: string, price: number): Variant => ({ id, label, price });
 
 export const products: Product[] = [
+  // ——— Monthly Ration Box ———
+  {
+    slug: "monthly-ration-box",
+    name: "Monthly Ration Box",
+    localName: "Daily essentials for a month",
+    category: "monthly-box",
+    short: "20 everyday staples for a month of home cooking, in one box.",
+    description:
+      "Everything a family kitchen reaches for every day — hand-pounded rice, chakki atta, roasted moong dal, cold-pressed mustard oil, chatua, wild honey and a full set of spices — packed together in one HonestHands box for the month.",
+    image: "/images/products/monthly-ration-box.webp",
+    contents: [
+      { name: "Hand Pound Rice (Dhinki Kuta)", qty: "10 kg", product: "hand-pound-rice" },
+      { name: "Desi Puffed Rice (Mudhi)", qty: "2 packets", product: "desi-puffed-rice" },
+      { name: "Roasted Moong Dal", qty: "2 kg", product: "roasted-moong-dal" },
+      { name: "Chakki Atta", qty: "10 kg", product: "chakki-atta" },
+      { name: "Cold-Pressed Mustard Oil (Ghana Sorisa Tela)", qty: "3 L", product: "wood-pressed-mustard-oil" },
+      { name: "Besan", qty: "2 kg", product: "besan" },
+      { name: "Premium Dry Fruits Chatua (Sattu)", qty: "3 kg", product: "dry-fruits-chatua" },
+      { name: "Jaggery (Kalasa Guda)", qty: "1 kg", product: "jaggery" },
+      { name: "Badi", qty: "3 packets", product: "badi" },
+      { name: "Wild Honey (Jungli Mahu)", qty: "200 g", product: "wild-honey" },
+      { name: "Roasted Ragi Powder (Mandia)", qty: "1 kg", product: "roasted-ragi-powder" },
+      { name: "Turmeric Powder", qty: "500 g", product: "kandhamal-turmeric" },
+      { name: "Chilli Powder", qty: "500 g", product: "chilli-powder" },
+      { name: "Kashmiri Chilli Powder", qty: "200 g", product: "kashmiri-chilli-powder" },
+      { name: "Garam Masala", qty: "200 g", product: "garam-masala" },
+      { name: "Curry Powder", qty: "100 g", product: "curry-powder" },
+      { name: "Black Pepper Powder", qty: "100 g", product: "black-pepper-powder" },
+      { name: "Coriander Powder", qty: "100 g", product: "coriander-powder" },
+      { name: "Jeera Powder", qty: "200 g", product: "jeera-powder" },
+      { name: "Panch Phoron", qty: "100 g", product: "panch-phoron" },
+    ],
+    tint: "#95441C",
+    badges: ["20 items"],
+    variants: [w("box", "1 box", 5999)],
+    inStock: true,
+    keywords: ["monthly box", "ration", "monthly ration", "combo", "grocery box", "kit", "bundle"],
+  },
+
   // ——— Grains, Atta & Pulses ———
   {
     slug: "hand-pound-rice",
@@ -121,6 +174,7 @@ export const products: Product[] = [
     description:
       "Traditionally pounded to retain maximum bran, natural fiber, and essential minerals. Ideal for slow-cooked, wholesome meals.",
     image: "/images/products/hand-pound-rice.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#A8532C",
     badges: ["Hand-pounded"],
     variants: [w("500g", "500 g", 82), w("1kg", "1 kg", 153)],
@@ -137,6 +191,7 @@ export const products: Product[] = [
     description:
       "Nutrient-rich, coarse-grained red rice. High in fiber and ideal for robust, traditional, and healthy culinary preparations.",
     image: "/images/products/rosematta-rice.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#9C4A3A",
     variants: [w("500g", "500 g", 76), w("1kg", "1 kg", 142)],
     inStock: true,
@@ -151,6 +206,7 @@ export const products: Product[] = [
     description:
       "A GI-tagged aromatic rice from the Koraput hills of Odisha, named for its small, dark, cumin-like grains. Cooks fragrant and soft — a heirloom grain for festive pulao, kheer and everyday rice.",
     image: "/images/products/koraput-kala-jeera-rice.webp",
+    origin: "Koraput, Odisha",
     tint: "#3B2A26",
     badges: ["GI-tagged"],
     // Sold as "Black Rice" on the client's price sheet.
@@ -167,6 +223,7 @@ export const products: Product[] = [
     description:
       "Fragrant Govind Bhog rice with a delicate aroma and soft texture — for pulao, bhog, payesh and festive meals.",
     image: "/images/products/basmati-rice.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C9B48A",
     variants: [w("500g", "500 g", 90), w("1kg", "1 kg", 170)],
     inStock: true,
@@ -180,6 +237,7 @@ export const products: Product[] = [
     description:
       "Stone-ground whole wheat flour retaining the vital wheat germ and natural oils for soft, highly digestible breads and rotis.",
     image: "/images/products/chakki-atta.webp",
+    madeByUs: true,
     tint: "#B99A6B",
     badges: ["Stone-ground"],
     variants: [w("1kg", "1 kg", 70)],
@@ -196,6 +254,7 @@ export const products: Product[] = [
     description:
       "Light, crispy, and traditionally processed puffed rice — a clean, versatile base for chef-special salads and healthy appetizers.",
     image: "/images/products/desi-puffed-rice.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#D8C49A",
     variants: [w("200g", "200 g", 55), w("1kg", "1 kg", 180)],
     inStock: true,
@@ -210,6 +269,7 @@ export const products: Product[] = [
     description:
       "Short-grain fragrant rice that cooks soft and creamy — ideal for kheer, payesh and festive puddings.",
     image: "/images/products/kheer-rice.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#E3D7B8",
     variants: [w("500g", "500 g", 77), w("1kg", "1 kg", 140)],
     inStock: true,
@@ -224,6 +284,7 @@ export const products: Product[] = [
     description:
       "Traditional flattened rice for poha, chuda santula, dahi chuda and quick, light breakfasts.",
     image: "/images/products/desi-beaten-rice.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#E6D6AE",
     variants: [w("500g", "500 g", 60)],
     inStock: true,
@@ -236,6 +297,7 @@ export const products: Product[] = [
     short: "Pearl millet flour for rotis and bhakri.",
     description:
       "Pearl millet flour with an earthy, nutty taste — for bajra rotis, bhakri and millet pancakes.",
+    madeByUs: true,
     tint: "#9C8A6A",
     variants: [w("500g", "500 g", 60), w("1kg", "1 kg", 110)],
     inStock: true,
@@ -252,6 +314,7 @@ export const products: Product[] = [
     description:
       "Energy-boosting roasted gram flour enriched with almonds, cashews, and cardamom. Available with or without sugar — perfect for summer drinks and breakfast.",
     image: "/images/products/dry-fruits-chatua.webp",
+    madeByUs: true,
     tint: "#B88A4E",
     badges: ["Bestseller"],
     variants: [w("sugar-500g", "With sugar · 500 g", 110), w("sugar-1kg", "With sugar · 1 kg", 205), w("nosugar-500g", "No sugar · 500 g", 110), w("nosugar-1kg", "No sugar · 1 kg", 205)],
@@ -283,6 +346,7 @@ export const products: Product[] = [
     description:
       "Unpolished split black lentils delivering natural stickiness and richness for traditional batters, dal makhani, and tempering.",
     image: "/images/products/urad-dal.webp",
+    origin: "Koraput, Odisha",
     tint: "#C8B68E",
     badges: ["Unpolished"],
     variants: [w("250g", "250 g", 61)],
@@ -298,6 +362,7 @@ export const products: Product[] = [
     description:
       "Nutrient-dense legume valued for its rich earthy taste, high protein content, and exceptional dietary iron.",
     image: "/images/products/roasted-horse-gram.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#8A5A3A",
     variants: [w("500g", "500 g", 120), w("1kg", "1 kg", 225)],
     inStock: true,
@@ -311,6 +376,7 @@ export const products: Product[] = [
     description:
       "Whole green lentils ideal for sprouting, wholesome stews, and high-protein side dishes.",
     image: "/images/products/green-gram.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#6E7F3C",
     variants: [w("500g", "500 g", 73)],
     inStock: true,
@@ -324,6 +390,7 @@ export const products: Product[] = [
     description:
       "A curated blend of essential unpolished pulses balanced for flavor, texture, and quick preparation.",
     image: "/images/products/mix-tadka-dal.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C07A3A",
     variants: [w("500g", "500 g", 89)],
     inStock: true,
@@ -351,6 +418,7 @@ export const products: Product[] = [
     description:
       "Nutritious finger millet flour, gently roasted for a warm nutty aroma. Perfect for porridges, flatbreads, and healthy baking.",
     image: "/images/products/roasted-ragi-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#7A4A3A",
     variants: [w("500g", "500 g", 93), w("1kg", "1 kg", 175)],
     inStock: true,
@@ -381,6 +449,7 @@ export const products: Product[] = [
     description:
       "Sun-dried lentil dumplings — fry until crisp and add to curries, saag and dalma for crunch and depth, the Odia way.",
     image: "/images/products/badi.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#D8C59A",
     variants: [w("200g", "200 g", 135)],
     inStock: true,
@@ -397,6 +466,7 @@ export const products: Product[] = [
     description:
       "GI-tagged turmeric from the hills of Kandhamal, Odisha — ground from whole roots for a deep golden hue and strong natural aroma.",
     image: "/images/products/kandhamal-turmeric.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#D99A1E",
     badges: ["GI-tagged"],
     variants: [w("100g", "100 g", 49), w("200g", "200 g", 87), w("500g", "500 g", 203)],
@@ -412,6 +482,7 @@ export const products: Product[] = [
     description:
       "Bold red chili ground from naturally sun-dried peppers, delivering a fiery heat and rich natural color to gravies.",
     image: "/images/products/chilli-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#B23A22",
     variants: [w("100g", "100 g", 76), w("200g", "200 g", 142), w("500g", "500 g", 340)],
     inStock: true,
@@ -425,6 +496,7 @@ export const products: Product[] = [
     description:
       "Renowned for imparting a vibrant red color to dishes with a mild, pleasant heat profile. Perfect for rich curries.",
     image: "/images/products/kashmiri-chilli-powder.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C4412A",
     variants: [w("50g", "50 g", 70), w("100g", "100 g", 130), w("500g", "500 g", 483)],
     inStock: true,
@@ -438,6 +510,7 @@ export const products: Product[] = [
     description:
       "Roasted and finely ground cumin seeds providing a warm, earthy, and smoky note essential across cuisines.",
     image: "/images/products/jeera-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#8A6A42",
     variants: [w("50g", "50 g", 50), w("100g", "100 g", 89)],
     inStock: true,
@@ -451,6 +524,7 @@ export const products: Product[] = [
     description:
       "Versatile, aromatic spice blend crafted for balanced curries, stews, marinades, and signature sauces.",
     image: "/images/products/curry-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#B76E2A",
     variants: [w("50g", "50 g", 53), w("100g", "100 g", 93), w("200g", "200 g", 130)],
     inStock: true,
@@ -479,6 +553,7 @@ export const products: Product[] = [
     description:
       "Signature hand-blended mix of whole fragrant spices, slow-roasted and ground to add warm depth to your cooking.",
     image: "/images/products/garam-masala.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#6E3B24",
     variants: [w("50g", "50 g", 77), w("100g", "100 g", 142)],
     inStock: true,
@@ -492,6 +567,7 @@ export const products: Product[] = [
     description:
       "Freshly ground from aromatic coriander seeds, providing a light, citrusy body to curries and broths.",
     image: "/images/products/coriander-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#9C8A4E",
     variants: [w("50g", "50 g", 31), w("100g", "100 g", 52)],
     inStock: true,
@@ -505,6 +581,7 @@ export const products: Product[] = [
     description:
       "Coarsely ground black peppercorns offering sharp, fresh bite and fragrant essential oils for finishing.",
     image: "/images/products/black-pepper-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#3A322C",
     variants: [w("50g", "50 g", 87)],
     inStock: true,
@@ -518,6 +595,7 @@ export const products: Product[] = [
     description:
       "The classic regional 5-spice mix (mustard, cumin, fennel, nigella, fenugreek) essential for authentic tempering.",
     image: "/images/products/panch-phoron.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#7C6A3A",
     variants: [w("50g", "50 g", 40), w("100g", "100 g", 67)],
     inStock: true,
@@ -531,6 +609,7 @@ export const products: Product[] = [
     description:
       "Balanced spice formulation providing classic rich aroma, deep color, and authentic taste to poultry dishes.",
     image: "/images/products/chicken-masala.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#9A4A26",
     variants: [w("50g", "50 g", 55), w("100g", "100 g", 100)],
     inStock: true,
@@ -543,6 +622,7 @@ export const products: Product[] = [
     description:
       "Robust, deeply aromatic spice blend formulated for rich, savory gravies and roasts.",
     image: "/images/products/meat-masala.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#7A3420",
     variants: [w("50g", "50 g", 55), w("100g", "100 g", 100)],
     inStock: true,
@@ -557,6 +637,7 @@ export const products: Product[] = [
     description:
       "Concentrated, pure tamarind pulp free from artificial preservatives — delivering authentic tangy notes, natural acidity, and deep flavor to soups, glazes, gravies, and marinades.",
     image: "/images/products/tamarind-paste.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#5A2E1E",
     variants: [w("200g", "200 g", 105)],
     inStock: true,
@@ -572,6 +653,7 @@ export const products: Product[] = [
     description:
       "Whole cumin seeds for tempering dals and curries, or dry-roasting and grinding fresh.",
     image: "/images/products/whole-jeera.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#8A6A42",
     variants: [w("50g", "50 g", 48), w("100g", "100 g", 84)],
     inStock: true,
@@ -585,6 +667,7 @@ export const products: Product[] = [
     description:
       "An aromatic spice blend for South Indian sambar, rasam and vegetable curries.",
     image: "/images/products/sambar-masala.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#B0582A",
     variants: [w("50g", "50 g", 48), w("100g", "100 g", 85)],
     inStock: true,
@@ -598,6 +681,7 @@ export const products: Product[] = [
     short: "Ground cinnamon for chai, sweets and curries.",
     description:
       "Finely ground cinnamon for chai, desserts, baking and warming curries.",
+    origin: "Mayurbhanj, Odisha",
     tint: "#8A4A2A",
     variants: [w("50g", "50 g", 57)],
     inStock: true,
@@ -612,6 +696,7 @@ export const products: Product[] = [
     description:
       "A traditional after-meal mouth freshener of roasted ajwain (carom seeds), dhaniya (coriander seeds) and fennel.",
     image: "/images/products/ajwain-dhaniya-mix.webp",
+    madeByUs: true,
     tint: "#9A8A5A",
     variants: [w("100g", "100 g", 67)],
     inStock: true,
@@ -624,6 +709,7 @@ export const products: Product[] = [
     short: "Tangy lemon and green chilli pickle.",
     description:
       "A tangy, spicy pickle of lemon and green chilli — the perfect side for dal-rice and parathas.",
+    madeByUs: true,
     tint: "#C9A12A",
     variants: [w("pack", "1 pack", 110)],
     inStock: true,
@@ -639,6 +725,7 @@ export const products: Product[] = [
     description:
       "Hand-churned using the traditional Bilona method from pure A2 cow milk. Rich grainy texture, golden color, and unforgettable aroma.",
     image: "/images/products/a2-desi-cow-ghee.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#E0A92E",
     badges: ["Bilona method"],
     variants: [w("200g", "200 g", 370)],
@@ -655,6 +742,7 @@ export const products: Product[] = [
     description:
       "Kachi Ghani oil extracted at low temperatures in a wooden press to keep its natural pungent kick and rich natural hue intact.",
     image: "/images/products/wood-pressed-mustard-oil.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C99A1E",
     badges: ["Wood-pressed"],
     variants: [w("500ml", "500 ml", 160), w("1l", "1 L", 310)],
@@ -671,6 +759,7 @@ export const products: Product[] = [
     description:
       "Wood cold-pressed without chemical refining. High smoke point with a subtle nutty aroma, ideal for deep-frying and sautéing.",
     image: "/images/products/wood-pressed-groundnut-oil.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#D8B24A",
     badges: ["Wood-pressed"],
     variants: [w("1l", "1 L", 300)],
@@ -685,6 +774,7 @@ export const products: Product[] = [
     description:
       "Small-batch coconut oil made by hand — clear, mild and fragrant for cooking, as well as traditional hair and skin care.",
     image: "/images/products/handmade-coconut-oil.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#E9E2C8",
     badges: ["Handmade"],
     variants: [w("200ml", "200 ml", 170), w("250ml", "250 ml", 210), w("500ml", "500 ml", 410)],
@@ -701,6 +791,7 @@ export const products: Product[] = [
     description:
       "Raw, unprocessed honey retaining natural live enzymes, pollen, and floral aromas. Sourced directly from forest apiaries.",
     image: "/images/products/wild-honey.webp",
+    origin: "Similipal forest, Mayurbhanj, Odisha",
     tint: "#B8741E",
     badges: ["Raw"],
     variants: [w("200g", "200 g", 175), w("500g", "500 g", 402)],
@@ -716,6 +807,7 @@ export const products: Product[] = [
     description:
       "Raw, unprocessed honey retaining natural live enzymes, pollen, and floral aromas. Sourced directly from farm apiaries.",
     image: "/images/products/farm-honey.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#D49A2A",
     badges: ["Raw"],
     variants: [w("200g", "200 g", 115), w("500g", "500 g", 215)],
@@ -731,6 +823,7 @@ export const products: Product[] = [
     description:
       "Unrefined, chemical-free sugarcane jaggery with its natural minerals. An excellent natural alternative to refined sugar.",
     image: "/images/products/jaggery.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#8A4A1E",
     variants: [w("500g", "500 g", 60), w("1kg", "1 kg", 110)],
     inStock: true,
@@ -746,6 +839,7 @@ export const products: Product[] = [
     description:
       "A crunchy, savoury namkeen mixture — made for tea-time and travel.",
     image: "/images/products/mixture.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C98A3A",
     variants: [w("500g", "500 g", 85), w("1kg", "1 kg", 160)],
     inStock: true,
@@ -759,6 +853,7 @@ export const products: Product[] = [
     description:
       "Crisp fried chuda (flattened rice) in a savoury mix — a classic Odia tea-time snack.",
     image: "/images/products/chuda-bhaja-mixture.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#D9B060",
     variants: [w("pack", "1 pack", 75)],
     inStock: true,
@@ -785,10 +880,39 @@ export const products: Product[] = [
     description:
       "Crunchy ladoos of roasted peanuts (china badam) bound in jaggery — a traditional Odia sweet for tea-time, festivals and gifting.",
     image: "/images/products/badam-ladoo.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C99A5A",
     variants: [w("box", "1 box", 115)],
     inStock: true,
     keywords: ["ladoo", "laddu", "badam", "almond", "sweets"],
+  },
+
+  {
+    slug: "ragi-biscuits",
+    name: "Ragi Biscuits",
+    category: "sweeteners-beverages-snacks",
+    short: "Crisp, oven-baked finger millet cookies.",
+    description:
+      "Crisp, oven-baked cookies made from finger millet (mandia) and wholesome ingredients — ideal with your evening tea.",
+    image: "/images/products/ragi-biscuits.webp",
+    origin: "Mayurbhanj, Odisha",
+    tint: "#7A4A32",
+    variants: [w("pack", "1 pack", 89)],
+    inStock: true,
+    keywords: ["mandia biscuit", "ragi", "millet cookies", "biscuits", "snacks"],
+  },
+  {
+    slug: "salty-stick-biscuits",
+    name: "Salty Stick Biscuits",
+    category: "sweeteners-beverages-snacks",
+    short: "Crisp, salted stick biscuits.",
+    description:
+      "Crisp, salted stick biscuits — an easy companion to tea and coffee.",
+    image: "/images/products/salty-stick-biscuits.webp",
+    tint: "#D8B880",
+    variants: [w("pack", "1 pack", 89)],
+    inStock: true,
+    keywords: ["biscuits", "salty", "sticks", "snacks"],
   },
 
   // ——— Fresh Produce & Wellness ———
@@ -814,6 +938,7 @@ export const products: Product[] = [
     description:
       "Vitamin C-rich dried Indian gooseberry powder, ideal for detox drinks, wellness teas, and herbal preparations.",
     image: "/images/products/amla-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#8A9A4A",
     variants: [w("50g", "50 g", 65)],
     inStock: true,
@@ -827,6 +952,7 @@ export const products: Product[] = [
     description:
       "Classic Ayurvedic blend of three fruits (Amla, Haritaki, Bibhitaki) for wellness preparations.",
     image: "/images/products/triphala-powder.webp",
+    origin: "Kandhamal, Odisha",
     tint: "#7A6A3A",
     variants: [w("50g", "50 g", 52), w("100g", "100 g", 94)],
     inStock: true,
@@ -907,6 +1033,7 @@ export const products: Product[] = [
     description:
       "Jhuna is the natural resin of the sal tree, traditionally burnt as dhoop in Odia homes and temples for its warm, smoky fragrance.",
     image: "/images/products/jhuna-dhoop.webp",
+    origin: "Mayurbhanj, Odisha",
     tint: "#C9A36A",
     variants: [w("100g", "100 g", 70)],
     inStock: true,
@@ -943,6 +1070,11 @@ export function enquiryCopy(p: Product) {
     : { note: "Price on request — message us for the current price and availability.", button: "Ask for price", message: `Hello HonestHands, could you share the price and availability of ${p.name}?` };
 }
 
+export function originLabel(p: Product) {
+  if (p.madeByUs) return "Made by HonestHands, Bhubaneswar";
+  return p.origin ? `Sourced from ${p.origin}` : undefined;
+}
+
 export const fromPrice = (p: Product) => (p.enquire ? Infinity : Math.min(...p.variants.map((v) => v.price)));
 
 export function relatedProducts(p: Product, n = 4) {
@@ -953,7 +1085,7 @@ export function searchProducts(query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return [];
   return products.filter((p) =>
-    [p.name, p.localName, p.short, ...(p.keywords ?? [])]
+    [p.name, p.localName, p.short, p.origin, ...(p.keywords ?? [])]
       .filter(Boolean)
       .some((s) => s!.toLowerCase().includes(q)),
   );

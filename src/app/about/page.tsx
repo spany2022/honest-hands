@@ -19,7 +19,7 @@ export default function AboutPage() {
 
       <section className="container-x grid items-center gap-14 py-16 lg:grid-cols-12 lg:py-24">
         <MaskReveal className="relative aspect-[4/3] overflow-hidden rounded-[2rem] lg:col-span-6">
-          <Image src="/images/brand/store-front.jpg" alt="The HonestHands store in Rasulgarh, Bhubaneswar" fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+          <Image src="/images/brand/store-front-night.jpg" alt="The HonestHands store in Rasulgarh, Bhubaneswar" fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
         </MaskReveal>
         <Reveal className="lg:col-span-6">
           <p className="eyebrow text-terracotta">About us</p>
