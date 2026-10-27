@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { MaskReveal, Reveal } from "../Reveal";
-import { Botanical } from "../Botanical";
 
 // The "HonestHands Promise", worded as in the product catalogue.
 export const promise = [
@@ -26,7 +25,7 @@ export function Philosophy() {
       <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="relative lg:col-span-6">
           {/* Landscape frame so the full signboard and both shop windows show. */}
-          <MaskReveal className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(59,33,20,0.5)]">
+          <MaskReveal className="relative z-[1] aspect-[4/3] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(59,33,20,0.5)]">
             <Image
               src="/images/brand/store-front-night.jpg"
               alt="The HonestHands store front in Rasulgarh, Bhubaneswar, lit up at night, with the Honest Kappi menu in the window"
@@ -35,10 +34,9 @@ export function Philosophy() {
               className="object-cover object-top"
             />
           </MaskReveal>
-          <MaskReveal delay={0.3} className="absolute -bottom-10 -right-2 aspect-square w-[24%] overflow-hidden rounded-[1.2rem] border-[5px] border-ivory shadow-xl sm:-bottom-14 sm:-right-6 lg:w-[22%]">
+          <MaskReveal delay={0.3} className="absolute -bottom-10 -right-2 z-[2] aspect-square w-[24%] overflow-hidden rounded-[1.2rem] border-[5px] border-ivory shadow-xl sm:-bottom-14 sm:-right-6 lg:w-[22%]">
             <Image src="/images/brand/packaging-1.jpg" alt="HonestHands spice and flour pouches with the three-women logo label" fill sizes="(min-width: 1024px) 20vw, 45vw" className="object-cover" />
           </MaskReveal>
-          <Botanical className="pointer-events-none absolute -left-8 -top-14 h-40 w-52 text-terracotta/50" />
         </div>
 
         <div className="lg:col-span-6 lg:pl-8">
