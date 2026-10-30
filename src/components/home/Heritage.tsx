@@ -25,7 +25,7 @@ export function Heritage() {
               <span className="band">The Odisha</span> Heritage Collection
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream/85">
-              GI-tagged Kandhamal haladi and Koraput kala jeera rice, chatua for summer mornings, palua for festive sweets, kolatha for winter
+              GI-tagged Kandhamal haladi and Koraput black rice, chatua for summer mornings, palua for festive sweets, kolatha for winter
               dal — and the hand-painted, handwoven crafts of our state.
             </p>
           </Reveal>

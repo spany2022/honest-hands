@@ -199,8 +199,8 @@ export const products: Product[] = [
   },
   {
     slug: "koraput-kala-jeera-rice",
-    name: "Koraput Kala Jeera Rice",
-    localName: "Kalajeera Chaula",
+    name: "Koraput Black Rice",
+    localName: "Kala Chaula",
     category: "grains-atta",
     short: "GI-tagged aromatic heirloom rice from Koraput.",
     description:
@@ -213,7 +213,7 @@ export const products: Product[] = [
     variants: [w("500g", "500 g", 164)],
     inStock: true,
     featured: true,
-    keywords: ["kalajeera", "kala jeera", "koraput", "aromatic rice", "gi tag", "black rice", "purple rice"],
+    keywords: ["kala chaula", "kalajeera", "kala jeera", "koraput", "aromatic rice", "gi tag", "black rice", "purple rice"],
   },
   {
     slug: "basmati-rice",
@@ -239,7 +239,6 @@ export const products: Product[] = [
     image: "/images/products/chakki-atta.webp",
     madeByUs: true,
     tint: "#B99A6B",
-    badges: ["Stone-ground"],
     variants: [w("1kg", "1 kg", 70)],
     inStock: true,
     featured: true,
@@ -719,7 +718,7 @@ export const products: Product[] = [
   // ——— Cold-Pressed Oils & Ghee ———
   {
     slug: "a2-desi-cow-ghee",
-    name: "A2 Desi Cow Ghee",
+    name: "A2 Bilona Desi Cow Ghee",
     category: "oils-ghee",
     short: "Hand-churned by the bilona method.",
     description:

@@ -65,7 +65,7 @@ export const recipes: Recipe[] = [
       { text: "2 cups Chakki Atta", product: "chakki-atta" },
       { text: "About ¾ cup warm water" },
       { text: "A pinch of salt" },
-      { text: "A2 Desi Cow Ghee, to brush", product: "a2-desi-cow-ghee" },
+      { text: "A2 Bilona Desi Cow Ghee, to brush", product: "a2-desi-cow-ghee" },
     ],
     steps: [
       "Mix atta and salt, then add warm water a little at a time and knead to a soft dough.",
